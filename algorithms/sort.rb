@@ -9,26 +9,27 @@ module Algorithms
       validate_sort_by_choice array, action
 
       array.length.times do
-        case action.downcase
-        when "asc"
-          min_value, index_for_value = find_min array
+        value, index = find_value_by_action action, array
 
-          sorted_array.push min_value
-        when "desc"
-          max_value, index_for_value = find_max array
+        next if value.nil?
 
-          sorted_array.push max_value
-        else
-          next
-        end
+        sorted_array.push(value)
 
-        array.delete_at index_for_value
+        array.delete_at index
       end
 
       sorted_array
     end
 
     private
+
+    def find_value_by_action(action, array)
+      case action.downcase
+      when "asc" then find_min array
+      when "desc" then find_max array
+      else [nil, nil]
+      end
+    end
 
     def find_min(array)
       min_index = 0
