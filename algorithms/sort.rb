@@ -21,6 +21,18 @@ module Algorithms
       sorted_array
     end
 
+    def quick_sort(array)
+      return array if array.length < 2 
+
+      support_element = array[0]
+
+      less_elements = array[1..].select { |element| less_or_equal?(element, support_element) }
+
+      greater_elements = array[1..].select { |element| greater?(element, support_element) }
+
+      quick_sort(less_elements) + [support_element] + quick_sort(greater_elements)
+    end
+
     private
 
     def find_value_by_action(action, array)
@@ -67,6 +79,28 @@ module Algorithms
       raise "Action is blank"if action.nil? || action == ""
 
       raise "Action must be desc or asc" unless allowed_action.include?(action.downcase)
+    end
+
+    def less_or_equal?(target_value, value)
+      less?(target_value, value) || equal?(target_value, value)
+    end
+
+    def greater?(target_value, value)
+      return true if (target_value <=> value) == 1
+
+      false
+    end
+
+    def less?(target_value, value)
+      return true if (target_value <=> value) == -1
+
+      false
+    end
+
+    def equal?(target_value, value)
+      return true if (target_value <=> value) == 0
+
+      false
     end
   end
 end
