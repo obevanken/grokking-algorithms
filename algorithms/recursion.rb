@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Algorithms
   # Класс для рекурсивных решений
   class Recursion
@@ -17,7 +19,7 @@ module Algorithms
       index_first_element = 0
 
       return 0 if list[index_first_element].nil?
-      
+
       list.delete_at(index_first_element)
 
       count_elements(list) + 1
@@ -26,7 +28,7 @@ module Algorithms
     def max_element(numbers)
       index_first_element = 0
       index_next_element = 1
-      
+
       current_element = numbers[index_first_element]
       next_element = numbers[index_next_element]
 
