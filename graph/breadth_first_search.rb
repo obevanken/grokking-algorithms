@@ -50,9 +50,5 @@ module Graph
 
       path.reverse
     end
-
-    def add_array_to_queue(array)
-      array.each { |value| @queue << value }
-    end
   end
 end
