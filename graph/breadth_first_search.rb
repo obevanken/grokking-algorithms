@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require_relative "./helpers"
+
 module Graph
   # Поиск в ширину
   # @return [Array] путь
   class BreadthFirstSearch
+    include Helpers
+
     def initialize(graph, start_point, end_point)
       @graph = graph
       @start_point = start_point
@@ -22,7 +26,7 @@ module Graph
 
         next if already_checked.include?(point)
 
-        return backtrace(parent) if point == @end_point
+        return backtrace(parent, @start_point, @end_point) if point == @end_point
 
         @graph.fetch(point, []).each do |adjacent|
           parent[adjacent] = point
@@ -33,22 +37,6 @@ module Graph
       end
 
       []
-    end
-
-    private
-
-    def backtrace(parent)
-      path = [@end_point]
-
-      while path.last != @start_point do
-        parent_key = parent[path.last]
-
-        break unless parent_key
-
-        path.push(parent_key)
-      end
-
-      path.reverse
     end
   end
 end
